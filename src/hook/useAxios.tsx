@@ -25,7 +25,7 @@ export interface AxiosState<P> {
  * @param {boolean} [manualFetch=false] - (optional) manually trigger fetch
  */
 
-export function useAxios<P>(url: string, axiosConfig: AxiosRequestConfig = {}, manualFetch = false): AxiosState<P> {
+function useAxios<P>(url: string, axiosConfig: AxiosRequestConfig = {}, manualFetch = false): AxiosState<P> {
     const [axiosState, setAxiosState] = useState<AxiosProps<P>>({
         response: null,
         error: null,
@@ -95,3 +95,5 @@ export function useAxios<P>(url: string, axiosConfig: AxiosRequestConfig = {}, m
 
     return { data, response, error, isLoading, refetch };
 }
+
+export default useAxios;

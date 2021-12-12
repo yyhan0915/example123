@@ -1,12 +1,12 @@
 import { Grid, styled } from '@mui/material';
 import React, { ReactNode } from 'react';
-import SideNavigation from './Navigation';
+import Navigation from './Navigation';
 
 const PREFIX = 'Navigation';
 
 const classes = {
     fixed: `${PREFIX}-fixed`,
-    maincontent: `${PREFIX}-maincontent`,
+    main: `${PREFIX}-main`,
 };
 
 const StyledAppLayout = styled('div')(({ theme }) => ({
@@ -19,7 +19,7 @@ const StyledAppLayout = styled('div')(({ theme }) => ({
         backgroundColor: theme.palette.grey[900],
         color: theme.palette.common.white,
     },
-    [`& .${classes.maincontent}`]: {
+    [`& .${classes.main}`]: {
         flexGrow: 1,
         padding: 20,
     },
@@ -34,9 +34,9 @@ const AppLayout: React.FC<IProps> = ({ children }) => {
         <StyledAppLayout>
             <Grid container sx={{ height: '100%' }}>
                 <Grid item xs={2} className={classes.fixed}>
-                    <SideNavigation />
+                    <Navigation />
                 </Grid>
-                <Grid item xs={10} container direction="column" className={classes.maincontent}>
+                <Grid item xs={10} container direction="column" className={classes.main}>
                     {children}
                 </Grid>
             </Grid>

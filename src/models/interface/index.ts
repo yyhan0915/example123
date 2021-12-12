@@ -1,1 +1,1 @@
-export * from './nasa.interface';
+export * from './nasa-api-data.interface';

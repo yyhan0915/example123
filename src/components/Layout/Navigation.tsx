@@ -1,6 +1,7 @@
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import HomeIcon from '@mui/icons-material/Home';
-import { List, ListItem, ListItemIcon, ListItemText, styled } from '@mui/material';
+import { Fab, List, ListItem, ListItemIcon, ListItemText, styled, useMediaQuery, useTheme } from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -36,8 +37,10 @@ const StyledNavigation = styled(List)(({ theme }) => ({
 const Navigation: React.VFC = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
-    return (
+    return matches ? (
         <StyledNavigation>
             <ListItem
                 className={clsx({ [classes.listItem]: true, [classes.selected]: location.pathname === '/' })}
@@ -63,6 +66,18 @@ const Navigation: React.VFC = () => {
                 <ListItemText primary="Picture List" />
             </ListItem>
         </StyledNavigation>
+    ) : (
+        <Fab sx={{ position: 'fixed', bottom: 16, right: 16 }} color="primary">
+            <ArrowForwardIosIcon
+                onClick={() => {
+                    if (location.pathname === '/') {
+                        navigate('/saved-pictures');
+                    } else {
+                        navigate('/');
+                    }
+                }}
+            />
+        </Fab>
     );
 };
 

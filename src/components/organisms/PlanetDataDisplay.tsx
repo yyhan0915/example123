@@ -32,9 +32,9 @@ const PlanetDataDisplay: React.FC<IProps> = ({ planetData }) => {
                 <img
                     src={planetData?.url}
                     alt="planet_image"
-                    width={340}
-                    height={340}
-                    style={{ marginTop: 30, marginBottom: 30 }}
+                    width={300}
+                    height={300}
+                    style={{ marginTop: 30, marginBottom: 30, boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}
                 />
             </StyledGridImageItem>
             <StyledGridItem item xs={12}>

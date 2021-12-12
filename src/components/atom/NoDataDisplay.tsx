@@ -1,6 +1,17 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, styled } from '@mui/material';
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
+
+const StyledBox = styled(Box)(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 700,
+    fontSize: 14,
+    width: '100%',
+    height: '100%',
+    flexDirection: 'column',
+}));
 
 interface IProps {
     textMessage?: string;
@@ -10,7 +21,7 @@ interface IProps {
 
 const NoDataDisplay: React.FC<IProps> = ({ textMessage, hasRetryButton, retryHandler }) => {
     return (
-        <Box
+        <StyledBox
             sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -22,7 +33,7 @@ const NoDataDisplay: React.FC<IProps> = ({ textMessage, hasRetryButton, retryHan
                 flexDirection: 'column',
             }}
         >
-            <span>{textMessage || 'Ooops, there is no data yet'}</span>
+            <span>{textMessage || 'Oops, there is no data yet'}</span>
             {hasRetryButton && (
                 <Button
                     variant="contained"
@@ -37,7 +48,7 @@ const NoDataDisplay: React.FC<IProps> = ({ textMessage, hasRetryButton, retryHan
                     Retry
                 </Button>
             )}
-        </Box>
+        </StyledBox>
     );
 };
 

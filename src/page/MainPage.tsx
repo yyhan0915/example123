@@ -1,26 +1,28 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, styled } from '@mui/material';
 import React, { useEffect } from 'react';
-import NoDataDisplay from 'src/components/atom/NoDataDisplay';
-import { AppLayout } from 'src/components/Layout';
-import DisplayPlanet from 'src/components/organisms/PlanetDataDisplay';
-import SaveButtonContainer from 'src/components/organisms/SaveButtonContainer';
-import { useAxios } from 'src/hook/useAxios';
-import useLocalStorage from 'src/hook/useLocalStorage';
+import { NoDataDisplay } from 'src/components/atom';
+import { AppLayout } from 'src/components/layout';
+import { PlanetDataBox } from 'src/components/view';
+import { useAxios, useLocalStorage } from 'src/hook';
 import { INasaApiData } from 'src/models/interface';
-import { getInitialPlanetData } from 'src/util';
-import getRandomDate from 'src/util/getRandomDate';
+import { getInitialPlanetData, getRandomDate } from 'src/util';
+
+const StyledLoadingBox = styled(Box)(() => ({
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}));
 
 const MainPage: React.VFC = () => {
     const [items] = useLocalStorage<INasaApiData[]>('items', []);
-
     const randomDate = getRandomDate(new Date('2000-01-01'), items);
-
     const { data, isLoading, refetch, error } = useAxios<INasaApiData[]>(
         `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_API_KEY}&start_date=${randomDate}&end_date=${randomDate}`,
         undefined,
         true,
     );
-
     const planetData = Array.isArray(data) ? data[0] : getInitialPlanetData();
 
     useEffect(() => {
@@ -42,25 +44,22 @@ const MainPage: React.VFC = () => {
         );
     }
 
+    if (isLoading) {
+        return (
+            <AppLayout>
+                <StyledLoadingBox>
+                    <CircularProgress />
+                </StyledLoadingBox>
+            </AppLayout>
+        );
+    }
+
     return (
         <AppLayout>
-            {isLoading || !data ? (
-                <Box
-                    sx={{
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
+            {!data ? (
+                <NoDataDisplay textMessage="No date fetched, please try again" hasRetryButton retryHandler={refetch} />
             ) : (
-                <>
-                    <DisplayPlanet planetData={planetData} />
-                    <SaveButtonContainer fetchedData={planetData} onApiFetchHandler={refetch} />
-                </>
+                <PlanetDataBox onApiFetchHandler={refetch} planetData={planetData} />
             )}
         </AppLayout>
     );
