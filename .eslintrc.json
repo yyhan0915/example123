@@ -45,11 +45,12 @@
         "consistent-return": "off",
         "react/destructuring-assignment": "off",
         "no-console": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "import/no-unresolved": "off"
     },
     "settings": {
         "import/resolver": {
-            "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+            "typescript": {}
         }
     }
 }

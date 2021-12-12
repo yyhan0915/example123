@@ -2,6 +2,7 @@ import { CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 import NoDataDisplay from './components/atom/NoDataDisplay';
 import ErrorBoundary from './ErrorBoundary';
+import { RouteURL } from './models/types';
 import { MainPage, SavedListPage } from './page';
 
 const App: React.FC = () => {
@@ -10,8 +11,8 @@ const App: React.FC = () => {
             <>
                 <CssBaseline />
                 <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/saved-pictures" element={<SavedListPage />} />
+                    <Route path={RouteURL.HOME} element={<MainPage />} />
+                    <Route path={RouteURL.SAVED_PICTURE_LIST} element={<SavedListPage />} />
                     <Route path="*" element={<NoDataDisplay textMessage="404 Page Not found" />} />
                 </Routes>
             </>

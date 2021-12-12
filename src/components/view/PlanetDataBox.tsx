@@ -5,14 +5,14 @@ import { INasaApiData } from 'src/models/interface';
 
 interface IProps {
     planetData: INasaApiData;
-    onApiFetchHandler: (config?: AxiosRequestConfig) => unknown;
+    handleApiFetch: (config?: AxiosRequestConfig) => unknown;
 }
 
-const PlanetDataBox: React.FC<IProps> = ({ planetData, onApiFetchHandler }) => {
+const PlanetDataBox: React.FC<IProps> = ({ planetData, handleApiFetch }) => {
     return (
         <>
             <PlanetDataDisplay planetData={planetData} />
-            <SaveButtonContainer fetchedData={planetData} onApiFetchHandler={onApiFetchHandler} />
+            <SaveButtonContainer fetchedData={planetData} handleApiFetch={handleApiFetch} />
         </>
     );
 };

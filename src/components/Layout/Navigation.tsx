@@ -5,6 +5,7 @@ import { Fab, List, ListItem, ListItemIcon, ListItemText, styled, useMediaQuery,
 import clsx from 'clsx';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { RouteURL } from 'src/models/types';
 
 const PREFIX = 'Navigation';
 
@@ -43,9 +44,9 @@ const Navigation: React.VFC = () => {
     return matches ? (
         <StyledNavigation>
             <ListItem
-                className={clsx({ [classes.listItem]: true, [classes.selected]: location.pathname === '/' })}
+                className={clsx({ [classes.listItem]: true, [classes.selected]: location.pathname === RouteURL.HOME })}
                 button
-                onClick={() => navigate('/')}
+                onClick={() => navigate(RouteURL.HOME)}
             >
                 <ListItemIcon>
                     <HomeIcon color="primary" />
@@ -55,10 +56,10 @@ const Navigation: React.VFC = () => {
             <ListItem
                 className={clsx({
                     [classes.listItem]: true,
-                    [classes.selected]: location.pathname === '/saved-pictures',
+                    [classes.selected]: location.pathname === RouteURL.SAVED_PICTURE_LIST,
                 })}
                 button
-                onClick={() => navigate('/saved-pictures')}
+                onClick={() => navigate(RouteURL.SAVED_PICTURE_LIST)}
             >
                 <ListItemIcon>
                     <FormatListBulletedIcon color="primary" />
@@ -70,10 +71,10 @@ const Navigation: React.VFC = () => {
         <Fab sx={{ position: 'fixed', bottom: 16, right: 16 }} color="primary">
             <ArrowForwardIosIcon
                 onClick={() => {
-                    if (location.pathname === '/') {
-                        navigate('/saved-pictures');
+                    if (location.pathname === RouteURL.HOME) {
+                        navigate(RouteURL.SAVED_PICTURE_LIST);
                     } else {
-                        navigate('/');
+                        navigate(RouteURL.HOME);
                     }
                 }}
             />

@@ -59,7 +59,7 @@ const MainPage: React.VFC = () => {
             {!data ? (
                 <NoDataDisplay textMessage="No date fetched, please try again" hasRetryButton retryHandler={refetch} />
             ) : (
-                <PlanetDataBox onApiFetchHandler={refetch} planetData={planetData} />
+                <PlanetDataBox handleApiFetch={refetch} planetData={planetData} />
             )}
         </AppLayout>
     );
