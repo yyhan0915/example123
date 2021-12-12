@@ -28,7 +28,7 @@ const PlanetDataDisplay: React.FC<IProps> = ({ planetData }) => {
             <Grid item xs={12}>
                 <TitleTypography>{planetData?.title}</TitleTypography>
             </Grid>
-            <StyledGridImageItem xs={12}>
+            <StyledGridImageItem item xs={12}>
                 <img
                     src={planetData?.url}
                     alt="planet_image"
@@ -37,7 +37,7 @@ const PlanetDataDisplay: React.FC<IProps> = ({ planetData }) => {
                     style={{ marginTop: 30, marginBottom: 30 }}
                 />
             </StyledGridImageItem>
-            <StyledGridItem xs={12}>
+            <StyledGridItem item xs={12}>
                 <Grid item xs={6}>
                     <Typography sx={{ fontWeight: 500 }}>Date : </Typography>
                 </Grid>
@@ -45,7 +45,7 @@ const PlanetDataDisplay: React.FC<IProps> = ({ planetData }) => {
                     <Typography>{planetData?.date}</Typography>
                 </Grid>
             </StyledGridItem>
-            <StyledGridItem xs={12}>
+            <StyledGridItem item xs={12}>
                 <Grid item xs={6}>
                     <Typography sx={{ fontWeight: 500 }}>Description : </Typography>
                 </Grid>
@@ -53,7 +53,7 @@ const PlanetDataDisplay: React.FC<IProps> = ({ planetData }) => {
                     <Typography>{planetData?.explanation}</Typography>
                 </Grid>
             </StyledGridItem>
-            <StyledGridItem xs={12}>
+            <StyledGridItem item xs={12}>
                 <Grid item xs={6}>
                     <Typography sx={{ fontWeight: 500 }}>CopyRight : </Typography>
                 </Grid>

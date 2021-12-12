@@ -1,21 +1,30 @@
-import { Component, ErrorInfo } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { Box } from '@mui/material';
 
-class ErrorBoundary extends Component<{}, { hasError: boolean; error?: Error }> {
-    constructor(props: any) {
+interface IError {
+    hasError: boolean;
+    error?: Error;
+}
+
+interface IProps {
+    children: ReactNode;
+}
+
+class ErrorBoundary extends Component<IProps, IError> {
+    constructor(props: { children: ReactNode }) {
         super(props);
         this.state = { hasError: false };
     }
 
-    static getDerivedStateFromError(error: Error) {
+    static getDerivedStateFromError(error: Error): IError {
         return { hasError: true, error };
     }
 
-    componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        console.log(error, errorInfo);
+    componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+        console.error(error, errorInfo);
     }
 
-    render() {
+    render(): ReactNode {
         if (this.state.hasError) {
             return (
                 <Box padding="300px 80px" textAlign="center">

@@ -7,7 +7,7 @@ import { INasaApiData } from 'src/models/interface';
 
 interface IProps {
     fetchedData: INasaApiData;
-    onApiFetchHandler: (config?: AxiosRequestConfig<any> | undefined) => unknown;
+    onApiFetchHandler: (config?: AxiosRequestConfig) => unknown;
 }
 
 const SaveButtonContainer: React.FC<IProps> = ({ onApiFetchHandler, fetchedData }) => {

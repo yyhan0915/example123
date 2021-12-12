@@ -5,7 +5,7 @@ import React from 'react';
 interface IProps {
     textMessage?: string;
     hasRetryButton?: boolean;
-    retryHandler?: (config?: AxiosRequestConfig<any> | undefined) => unknown;
+    retryHandler?: (config?: AxiosRequestConfig) => unknown;
 }
 
 const NoDataDisplay: React.FC<IProps> = ({ textMessage, hasRetryButton, retryHandler }) => {

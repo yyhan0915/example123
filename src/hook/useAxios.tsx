@@ -10,7 +10,7 @@ interface AxiosProps<P> {
     isLoading: boolean;
 }
 
-export interface AxiosState<P = any> {
+export interface AxiosState<P> {
     data?: P;
     response: AxiosResponse<P> | null;
     error: AxiosError | null;
@@ -25,11 +25,7 @@ export interface AxiosState<P = any> {
  * @param {boolean} [manualFetch=false] - (optional) manually trigger fetch
  */
 
-export function useAxios<P = any>(
-    url: string,
-    axiosConfig: AxiosRequestConfig = {},
-    manualFetch = false,
-): AxiosState<P> {
+export function useAxios<P>(url: string, axiosConfig: AxiosRequestConfig = {}, manualFetch = false): AxiosState<P> {
     const [axiosState, setAxiosState] = useState<AxiosProps<P>>({
         response: null,
         error: null,

@@ -27,7 +27,7 @@ const MainPage: React.VFC = () => {
         if (items) {
             refetch();
         }
-        // eslint-disabled react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (error) {
