@@ -5,27 +5,24 @@ import SideNavigation from './Navigation';
 const PREFIX = 'Navigation';
 
 const classes = {
-    root: `${PREFIX}-root`,
     fixed: `${PREFIX}-fixed`,
     maincontent: `${PREFIX}-maincontent`,
-    titlepad: `${PREFIX}-titlepad`,
 };
 
-const StyledAppLayout = styled('div')(() => ({
-    [`& .${classes.root}`]: {
-        flexGrow: 1,
-    },
+const StyledAppLayout = styled('div')(({ theme }) => ({
+    height: '100vh',
+
     [`& .${classes.fixed}`]: {
         flexGrow: 0,
         flexShrink: 0,
         flexBasis: '240px',
+        backgroundColor: theme.palette.grey[900],
+        color: theme.palette.common.white,
+        height: '100vh',
     },
     [`& .${classes.maincontent}`]: {
         flexGrow: 1,
         padding: 20,
-    },
-    [`& .${classes.titlepad}`]: {
-        paddingBottom: 20,
     },
 }));
 
@@ -35,7 +32,7 @@ interface IProps {
 
 const AppLayout: React.FC<IProps> = ({ children }) => {
     return (
-        <StyledAppLayout className={classes.root}>
+        <StyledAppLayout>
             <Grid container>
                 <Grid item xs={2} className={classes.fixed}>
                     <SideNavigation />
