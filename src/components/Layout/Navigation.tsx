@@ -14,7 +14,7 @@ const classes = {
 
 const StyledNavigation = styled(List)(({ theme }) => ({
     width: '100%',
-    height: '100vh',
+    height: '100%',
     maxWidth: theme.spacing(30),
     minWidth: theme.spacing(15),
     color: theme.palette.primary.contrastText,

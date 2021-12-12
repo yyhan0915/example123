@@ -18,7 +18,6 @@ const StyledAppLayout = styled('div')(({ theme }) => ({
         flexBasis: '240px',
         backgroundColor: theme.palette.grey[900],
         color: theme.palette.common.white,
-        height: '100vh',
     },
     [`& .${classes.maincontent}`]: {
         flexGrow: 1,
@@ -33,7 +32,7 @@ interface IProps {
 const AppLayout: React.FC<IProps> = ({ children }) => {
     return (
         <StyledAppLayout>
-            <Grid container>
+            <Grid container sx={{ height: '100%' }}>
                 <Grid item xs={2} className={classes.fixed}>
                     <SideNavigation />
                 </Grid>
