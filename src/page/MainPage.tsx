@@ -1,24 +1,45 @@
-import { Button, Box, CircularProgress, Typography } from '@mui/material';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Box, CircularProgress } from '@mui/material';
+import React, { useEffect } from 'react';
+import NoDataDisplay from 'src/components/atom/NoDataDisplay';
 import { AppLayout } from 'src/components/Layout';
+import DisplayPlanet from 'src/components/organisms/PlanetDataDisplay';
+import SaveButtonContainer from 'src/components/organisms/SaveButtonContainer';
 import { useAxios } from 'src/hook/useAxios';
 import useLocalStorage from 'src/hook/useLocalStorage';
 import { INasaApiData } from 'src/models/interface';
+import { getInitialPlanetData } from 'src/util';
+import getRandomDate from 'src/util/getRandomDate';
 
 const MainPage: React.VFC = () => {
-    const navigation = useNavigate();
-    const { data, isLoading, refetch, error } = useAxios<INasaApiData>(
-        `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_API_KEY}`,
-    );
-    const [item, setItem] = useLocalStorage<INasaApiData[]>('item', []);
+    const [items] = useLocalStorage<INasaApiData[]>('items', []);
 
-    console.log('what is local item?', item);
+    const randomDate = getRandomDate(new Date('2000-01-01'), items);
+
+    const { data, isLoading, refetch, error } = useAxios<INasaApiData[]>(
+        `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_API_KEY}&start_date=${randomDate}&end_date=${randomDate}`,
+        undefined,
+        true,
+    );
+
+    const planetData = Array.isArray(data) ? data[0] : getInitialPlanetData();
+
+    useEffect(() => {
+        if (items) {
+            refetch();
+        }
+        // eslint-disabled react-hooks/exhaustive-deps
+    }, []);
 
     if (error) {
-        <AppLayout>
-            <span>something went wrong</span>
-        </AppLayout>;
+        return (
+            <AppLayout>
+                <NoDataDisplay
+                    textMessage="Something went wrong, please try again"
+                    hasRetryButton
+                    retryHandler={refetch}
+                />
+            </AppLayout>
+        );
     }
 
     return (
@@ -37,44 +58,8 @@ const MainPage: React.VFC = () => {
                 </Box>
             ) : (
                 <>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Typography variant="h4">{data?.title}</Typography>
-                        <img
-                            src={data?.url}
-                            alt="planet_image"
-                            width={340}
-                            height={340}
-                            style={{ marginTop: 30, marginBottom: 30 }}
-                        />
-                        <Typography>{data?.date}</Typography>
-                        <Typography>{data?.explanation}</Typography>
-                        <Typography>{data?.service_version}</Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: 1,
-                        }}
-                    >
-                        <Button variant="contained" onClick={() => refetch()}>
-                            Next
-                        </Button>
-                        <Button variant="contained" onClick={() => setItem([...item, data])}>
-                            Save
-                        </Button>
-                        <Button variant="contained" onClick={() => navigation('/saved-pictures')}>
-                            Saved
-                        </Button>
-                    </Box>
+                    <DisplayPlanet planetData={planetData} />
+                    <SaveButtonContainer fetchedData={planetData} onApiFetchHandler={refetch} />
                 </>
             )}
         </AppLayout>
