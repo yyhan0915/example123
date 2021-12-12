@@ -1,10 +1,11 @@
 import { CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
 import { MainPage, SavedListPage } from './page';
 
 const App: React.FC = () => {
     return (
-        <>
+        <ErrorBoundary>
             <CssBaseline />
             <Routes>
                 <Route path="/" element={<MainPage />} />
@@ -18,7 +19,7 @@ const App: React.FC = () => {
                     }
                 />
             </Routes>
-        </>
+        </ErrorBoundary>
     );
 };
 
