@@ -51,7 +51,7 @@ const Navigation: React.VFC = () => {
                 <ListItemIcon>
                     <HomeIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText primary="Accounts" />
+                <ListItemText primary="Home" />
             </ListItem>
             <ListItem
                 className={clsx({
